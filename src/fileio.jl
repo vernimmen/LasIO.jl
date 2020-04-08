@@ -125,7 +125,7 @@ function savebuf(s::IO, header::LasHeader, pointdata::AbstractVector{<:LasPoint}
     # 2048 points seemed to be an optimum for the libLAS_1.2.las testfile
     npoints_buffered = 2048
     bufsize = header.data_record_length * npoints_buffered
-    buf = IOBuffer(bufsize)
+    buf = IOBuffer(read=true, write=true, maxsize=bufsize)
     # write points
     for (i, p) in enumerate(pointdata)
         write(buf, p)
